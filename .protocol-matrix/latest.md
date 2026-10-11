@@ -1,6 +1,6 @@
-# ACP Protocol Adaptation Matrix — 2026-10-10
+# ACP Protocol Adaptation Matrix — 2026-10-11
 
-_Generated at 2026-10-10T11:12:05+00:00_
+_Generated at 2026-10-11T11:25:41+00:00_
 
 - Agents in report: **35**
 - Probed this run: **35**
@@ -26,7 +26,7 @@ corust-agent        0.6.0       binary  ok        agent                     -
 cursor              2026.10.01  binary  ok        agent                     loadSession, session/list                              
 devin               3000.11.3   binary  ok        agent, terminal           loadSession, session/list                              
 dimcode             0.5.16      npx     ok        terminal                  loadSession, session/list, session/fork, session/resume
-dirac               0.5.18      npx     ok        agent, env_var, terminal  loadSession, session/resume                            
+dirac               0.5.19      npx     ok        agent, env_var, terminal  loadSession, session/resume                            
 factory-droid       0.238.0     npx     ok        agent                     loadSession, session/list, session/resume              
 gemini              0.63.0      npx     ok        agent                     loadSession                                            
 github-copilot      1.552.0     npx     ok        agent                     loadSession, session/list                              
@@ -34,7 +34,7 @@ github-copilot-cli  1.0.95      npx     ok        terminal                  load
 glm-acp-agent       1.14.0      npx     ok        agent, env_var            loadSession, session/list, session/fork, session/resume
 goose               1.54.0      binary  ok        agent                     loadSession, session/list                              
 grok-build          1.0.51      npx     ok        agent                     loadSession, session/list, session/resume              
-harn                0.10.160    binary  ok        agent                     loadSession, session/list, session/resume              
+harn                0.10.163    binary  ok        agent                     loadSession, session/list, session/resume              
 junie               3579.5.0    binary  ok        agent                     loadSession, session/list, session/fork, session/resume
 kilo                7.8.8       npx     ok        terminal                  loadSession, session/list, session/fork, session/resume
 kimchi              1.9.1       binary  ok        agent                     loadSession, session/list                              
@@ -42,7 +42,7 @@ kimi                1.52.0      binary  ok        terminal                  load
 minimax-code        0.2.7       npx     ok        terminal                  loadSession, session/list, session/fork, session/resume
 mistral-vibe        2.26.1      binary  ok        agent, terminal           loadSession, session/list, session/fork                
 nova                1.1.51      npx     ok        terminal                  loadSession, session/list, session/fork, session/resume
-opencode            1.18.35     binary  ok        terminal                  loadSession, session/list, session/fork, session/resume
+opencode            1.19.0      binary  ok        terminal                  loadSession, session/list, session/fork, session/resume
 pi-acp              0.0.34      npx     ok        terminal                  loadSession, session/list                              
 poolside            1.0.16      binary  ok        terminal                  loadSession, session/list                              
 qwen-code           0.25.0      npx     ok        agent                     loadSession, session/list, session/resume              
