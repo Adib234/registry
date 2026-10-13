@@ -1,7 +1,7 @@
 {
   "id": "antigravity-acp",
   "name": "Google Antigravity",
-  "version": "1.3.0",
+  "version": "0.0.1",
   "description": "Google’s AI coding agent",
   "website": "https://antigravity.google/docs/ide/extensions",
   "authors": [

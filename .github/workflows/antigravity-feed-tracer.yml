@@ -1,0 +1,50 @@
+# Fork-only tracer for the Antigravity feed plugin (slice S1). Not for upstream.
+name: Antigravity feed tracer
+
+on:
+  push:
+    branches: [antigravity-feed-tracer]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  ANTIGRAVITY_FEED_BASE: https://dl.google.com/agy-extensions/releases/acp/feed/test
+
+jobs:
+  tracer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+
+      - name: Probe the test link (cache headers as a GitHub runner sees them)
+        run: |
+          URL="${ANTIGRAVITY_FEED_BASE}/next/0.0.1/acp_next.json"
+          for variant in "?r=${GITHUB_RUN_ID}-probe" ""; do
+            echo "::group::GET ${URL}${variant}"
+            curl -sS -o /dev/null -D - -H 'Cache-Control: no-cache' "${URL}${variant}" \
+              | grep -iE '^(HTTP|age|cache-control|expires|date|last-modified|etag)' || true
+            echo "::endgroup::"
+          done
+
+      - name: Run the updater for antigravity-acp (dry run)
+        working-directory: .github/workflows
+        run: |
+          set +e
+          python update_versions.py --agents antigravity-acp
+          code=$?
+          echo "update_versions.py exit code: ${code} (2 = update available)"
+          [ "${code}" -eq 0 ] || [ "${code}" -eq 2 ]
+
+      - name: Does the current entry pass upstream's auth check?
+        continue-on-error: true
+        run: python3 .github/workflows/verify_agents.py --auth-check --agent antigravity-acp
