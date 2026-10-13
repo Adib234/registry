@@ -1,7 +1,7 @@
 {
   "id": "antigravity-acp",
   "name": "Google Antigravity",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Google’s AI coding agent",
   "website": "https://antigravity.google/docs/ide/extensions",
   "authors": [
@@ -12,30 +12,40 @@
   "distribution": {
     "binary": {
       "darwin-aarch64": {
-        "archive": "https://dl.google.com/agy-extensions/releases/macos/agy-acp-server-1.3.0-darwin-arm64.zip",
-        "cmd": "./agy_acp_server.par"
+        "archive": "https://dl.google.com/agy-extensions/releases/macos/agy-acp-server-1.4.0-darwin-arm64.zip",
+        "cmd": "./agy_acp_server.par",
+        "sha256": "21a32eeab85b394a515510c84539bda4b2504bf2917e0a201f5c4130b13581a5"
       },
       "darwin-x86_64": {
-        "archive": "https://dl.google.com/agy-extensions/releases/macos/agy-acp-server-1.3.0-darwin-x86_64.zip",
-        "cmd": "./agy_acp_server.par"
+        "archive": "https://dl.google.com/agy-extensions/releases/macos/agy-acp-server-1.4.0-darwin-x86_64.zip",
+        "cmd": "./agy_acp_server.par",
+        "sha256": "407b6b8ef167bb207d1effdbd488bacf63ba7dab2b47d4a47d8ea3710a8c0f55"
       },
       "linux-x86_64": {
-        "archive": "https://dl.google.com/agy-extensions/releases/linux/agy-acp-server-1.3.0-linux-x86_64.zip",
+        "archive": "https://dl.google.com/agy-extensions/releases/linux/agy-acp-server-1.4.0-linux-x86_64.zip",
         "cmd": "./agy_acp_server.par",
-        "args": ["--uid="]
+        "args": [
+          "--uid="
+        ],
+        "sha256": "fbb2d54dd94fb897845308d3b6b46187c627f1c60078ded81adeeaf8b90c5d7a"
       },
       "linux-aarch64": {
-        "archive": "https://dl.google.com/agy-extensions/releases/linux/agy-acp-server-1.3.0-linux-arm64.zip",
+        "archive": "https://dl.google.com/agy-extensions/releases/linux/agy-acp-server-1.4.0-linux-arm64.zip",
         "cmd": "./agy_acp_server.par",
-        "args": ["--uid="]
+        "args": [
+          "--uid="
+        ],
+        "sha256": "3dc43a21f5402b23a4dba7b320a6745e9dbf4b6ead912ce9fc76011ea3a08a7e"
       },
       "windows-x86_64": {
-        "archive": "https://dl.google.com/agy-extensions/releases/windows/agy-acp-server-1.3.0-windows-x86_64.zip",
-        "cmd": "./agy_acp_server.exe"
+        "archive": "https://dl.google.com/agy-extensions/releases/windows/agy-acp-server-1.4.0-windows-x86_64.zip",
+        "cmd": "./agy_acp_server.exe",
+        "sha256": "d737aad2d6388e071bc907db415c129a256915d275f436e68f10dcdf6af896da"
       },
       "windows-aarch64": {
-        "archive": "https://dl.google.com/agy-extensions/releases/windows/agy-acp-server-1.3.0-windows-arm64.zip",
-        "cmd": "./agy_acp_server.exe"
+        "archive": "https://dl.google.com/agy-extensions/releases/windows/agy-acp-server-1.4.0-windows-arm64.zip",
+        "cmd": "./agy_acp_server.exe",
+        "sha256": "37fac14835f06caf05b4b93fed59a0e16e7c716e3ec95f03d4779a61abe3c2e6"
       }
     }
   }
