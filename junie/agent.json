@@ -57,56 +57,56 @@
     }
   },
   "preview": {
-    "version": "3822.1.0",
+    "version": "3831.1.0",
     "distribution": {
       "binary": {
         "darwin-aarch64": {
-          "archive": "https://github.com/JetBrains/junie/releases/download/3822.1/junie-nightly-3822.1-macos-aarch64.zip",
+          "archive": "https://github.com/JetBrains/junie/releases/download/3831.1/junie-nightly-3831.1-macos-aarch64.zip",
           "cmd": "./Applications/junie.app/Contents/MacOS/junie",
           "args": [
             "--acp=true"
           ],
-          "sha256": "9b841a46362774701757a324bdcee8beff3d7d46658ba8d6e2ba5059a7778cd0"
+          "sha256": "5e00a8611f235cd5b9d1a202bf05d967e9f03c783f35532ac909b68d6a85a3be"
         },
         "darwin-x86_64": {
-          "archive": "https://github.com/JetBrains/junie/releases/download/3822.1/junie-nightly-3822.1-macos-amd64.zip",
+          "archive": "https://github.com/JetBrains/junie/releases/download/3831.1/junie-nightly-3831.1-macos-amd64.zip",
           "cmd": "./Applications/junie.app/Contents/MacOS/junie",
           "args": [
             "--acp=true"
           ],
-          "sha256": "f8f3d7801fb86a4f890ed3d16fd35621c82de9ba3e515174b274e942e6b1be82"
+          "sha256": "9818f2ba5dd1bfa994797d7b2729338def028061b96e5b9ed10326df4af9b667"
         },
         "linux-aarch64": {
-          "archive": "https://github.com/JetBrains/junie/releases/download/3822.1/junie-nightly-3822.1-linux-aarch64.zip",
+          "archive": "https://github.com/JetBrains/junie/releases/download/3831.1/junie-nightly-3831.1-linux-aarch64.zip",
           "cmd": "./junie-app/bin/junie",
           "args": [
             "--acp=true"
           ],
-          "sha256": "95ce46c99335b252e68626966b5515ed3a796e4090f75650329b8d980f133c66"
+          "sha256": "222ea05873d336a1af9b7c2fd817c19ec537f3d8eceef263b468652cb4264eaf"
         },
         "linux-x86_64": {
-          "archive": "https://github.com/JetBrains/junie/releases/download/3822.1/junie-nightly-3822.1-linux-amd64.zip",
+          "archive": "https://github.com/JetBrains/junie/releases/download/3831.1/junie-nightly-3831.1-linux-amd64.zip",
           "cmd": "./junie-app/bin/junie",
           "args": [
             "--acp=true"
           ],
-          "sha256": "e0af03e6f09e9a235a2dfd7534e3800d0cfda4a259dc131054a28a9ce975f714"
+          "sha256": "fd62a0ceb17ef18b7c156840fdd778c34f113b23a18405daf07a93309aff6de5"
         },
         "windows-x86_64": {
-          "archive": "https://github.com/JetBrains/junie/releases/download/3822.1/junie-nightly-3822.1-windows-amd64.zip",
+          "archive": "https://github.com/JetBrains/junie/releases/download/3831.1/junie-nightly-3831.1-windows-amd64.zip",
           "cmd": "./junie/junie.exe",
           "args": [
             "--acp=true"
           ],
-          "sha256": "9f0504566c3e94f806c4a077ea6001817bf5e94b8d84f29f17d940cffe8bc005"
+          "sha256": "7975e60c493be4c9c8abd85e80dec4a6805baf9ceca4d43507f4a4345fe13734"
         },
         "windows-aarch64": {
-          "archive": "https://github.com/JetBrains/junie/releases/download/3822.1/junie-nightly-3822.1-windows-aarch64.zip",
+          "archive": "https://github.com/JetBrains/junie/releases/download/3831.1/junie-nightly-3831.1-windows-aarch64.zip",
           "cmd": "./junie/junie.exe",
           "args": [
             "--acp=true"
           ],
-          "sha256": "806ea3f3267a063fe05863654e91d5402760b33681cfe57d4ed9a2cb8deab3fd"
+          "sha256": "cacc528bb941f0b1aca70a0b32513981638574f1dd8c28df996e95d3a0f490e8"
         }
       }
     }
