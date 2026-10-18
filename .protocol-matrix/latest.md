@@ -1,6 +1,6 @@
-# ACP Protocol Adaptation Matrix — 2026-10-17
+# ACP Protocol Adaptation Matrix — 2026-10-18
 
-_Generated at 2026-10-17T09:25:01+00:00_
+_Generated at 2026-10-18T09:39:34+00:00_
 
 - Agents in report: **36**
 - Probed this run: **36**
@@ -14,7 +14,7 @@ Legend: `Capabilities` lists the capabilities advertised in the `initialize` res
 Agent               Version     Dist    Init      Auth                      Capabilities                                           
 ------------------  ----------  ------  --------  ------------------------  -------------------------------------------------------
 amp-acp             0.10.0      binary  ok        terminal                  loadSession, session/resume                            
-antigravity-acp     1.4.0       binary  ok        agent                     loadSession, session/list, session/resume              
+antigravity-acp     1.4.1       binary  ok        agent                     loadSession, session/list, session/resume              
 auggie              0.36.0      npx     ok        terminal                  loadSession, session/list                              
 autohand            0.2.1       npx     ok        terminal                  loadSession, session/list, session/fork, session/resume
 bob                 2.0.8       npx     ok        agent                     loadSession, session/list, session/resume              
@@ -24,7 +24,7 @@ codebuddy-code      2.168.2     npx     ok        agent                     load
 codex-acp           2.2.2       npx     ok        agent                     loadSession, session/list, session/fork, session/resume
 cortex-code         1.0.73      binary  proc_err  -                         -                                                      
 corust-agent        0.6.0       binary  ok        agent                     -                                                      
-cursor              2026.10.14  binary  ok        agent                     loadSession, session/list                              
+cursor              2026.10.16  binary  ok        agent                     loadSession, session/list                              
 devin               3000.11.92  binary  ok        agent, terminal           loadSession, session/list                              
 dimcode             0.5.19      npx     ok        terminal                  loadSession, session/list, session/fork, session/resume
 dirac               0.5.21      npx     ok        agent, env_var, terminal  loadSession, session/resume                            
@@ -34,8 +34,8 @@ github-copilot      1.554.0     npx     ok        agent                     load
 github-copilot-cli  1.0.98      npx     ok        terminal                  loadSession, session/list                              
 glm-acp-agent       1.15.0      npx     ok        agent, env_var            loadSession, session/list, session/fork, session/resume
 goose               1.55.0      binary  ok        agent                     loadSession, session/list                              
-grok-build          1.0.62      npx     ok        agent                     loadSession, session/list, session/resume              
-harn                0.10.167    binary  ok        agent                     loadSession, session/list, session/resume              
+grok-build          1.0.63      npx     ok        agent                     loadSession, session/list, session/resume              
+harn                0.10.169    binary  ok        agent                     loadSession, session/list, session/resume              
 junie               3659.7.0    binary  ok        agent, terminal           loadSession, session/list, session/fork, session/resume
 kilo                7.8.12      npx     ok        terminal                  loadSession, session/list, session/fork, session/resume
 kimchi              1.16.0      binary  ok        agent                     loadSession, session/list                              
