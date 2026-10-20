@@ -18,7 +18,6 @@ next run.
 import json
 import os
 import re
-import sys
 import urllib.error
 import urllib.request
 from typing import NamedTuple
@@ -46,12 +45,8 @@ MAX_HOPS = 50
 _SHA256 = re.compile(r"[0-9a-f]{64}")
 
 
-class _Transient(Exception):
-    """dl.google.com is unreachable or erroring; try again next run."""
-
-
-class _BadFeed(Exception):
-    """The feed itself is wrong; a person needs to look."""
+class _FeedError(Exception):
+    """dl.google.com is unreachable, or the feed is wrong."""
 
 
 class _Hop(NamedTuple):
@@ -91,11 +86,9 @@ def _open(url: str, method: str):
     except urllib.error.HTTPError as e:
         if e.code == 404:
             return None
-        if e.code >= 500:
-            raise _Transient(f"HTTP {e.code} for {url}") from e
-        raise _BadFeed(f"HTTP {e.code} for {url}") from e
+        raise _FeedError(f"HTTP {e.code} for {url}") from e
     except (urllib.error.URLError, TimeoutError, OSError) as e:
-        raise _Transient(f"{url}: {e}") from e
+        raise _FeedError(f"{url}: {e}") from e
 
 
 def _get(url: str) -> tuple[int, bytes]:
@@ -127,22 +120,22 @@ def _parse_link(from_version: str, body: bytes, link_url: str) -> _Hop:
         version = data["version"]
         platforms = data["platforms"]
         if version_tuple(version) <= version_tuple(from_version):
-            raise _BadFeed(f"next/{from_version} names {version}, which is not newer")
+            raise _FeedError(f"next/{from_version} names {version}, which is not newer")
     except (ValueError, KeyError, TypeError) as e:
-        raise _BadFeed(f"next/{from_version}: malformed link: {e}") from e
+        raise _FeedError(f"next/{from_version}: malformed link: {e}") from e
     if not isinstance(platforms, dict) or set(platforms) != PLATFORMS:
-        raise _BadFeed(f"next/{from_version}: expected platforms {sorted(PLATFORMS)}")
+        raise _FeedError(f"next/{from_version}: expected platforms {sorted(PLATFORMS)}")
     assets: dict[str, ResolvedAsset] = {}
     sizes: dict[str, int] = {}
     for platform, entry in platforms.items():
         entry = entry if isinstance(entry, dict) else {}
         archive, sha256, size = entry.get("archive"), entry.get("sha256"), entry.get("size")
         if not isinstance(archive, str) or not archive.startswith(ARCHIVE_PREFIXES):
-            raise _BadFeed(f"next/{from_version}: {platform} archive outside allowlist")
+            raise _FeedError(f"next/{from_version}: {platform} archive outside allowlist")
         if not isinstance(sha256, str) or not _SHA256.fullmatch(sha256):
-            raise _BadFeed(f"next/{from_version}: {platform} sha256 is not 64 hex chars")
+            raise _FeedError(f"next/{from_version}: {platform} sha256 is not 64 hex chars")
         if not isinstance(size, int) or isinstance(size, bool) or size <= 0:
-            raise _BadFeed(f"next/{from_version}: {platform} size must be a positive int")
+            raise _FeedError(f"next/{from_version}: {platform} size must be a positive int")
         assets[platform] = ResolvedAsset(archive_url=archive, sha256=sha256)
         sizes[platform] = size
     return _Hop(version, assets, sizes, link_url, yanked=False)
@@ -161,7 +154,7 @@ def _walk(start: str) -> list[_Hop]:
         yank_status, _ = _get(f"{FEED_BASE}/yanked/{hop.version}/acp_yanked.json")
         hops.append(hop._replace(yanked=yank_status == 200))
         version = hop.version
-    raise _BadFeed(f"chain longer than {MAX_HOPS} links from {start}")
+    raise _FeedError(f"chain longer than {MAX_HOPS} links from {start}")
 
 
 def _check_archives(hop: _Hop) -> None:
@@ -169,9 +162,9 @@ def _check_archives(hop: _Hop) -> None:
     for platform, asset in sorted(hop.assets.items()):
         status, content_type, length = _head(asset.archive_url)
         if status != 200:
-            raise _BadFeed(f"{hop.version} {platform}: HTTP {status} for {asset.archive_url}")
+            raise _FeedError(f"{hop.version} {platform}: HTTP {status} for {asset.archive_url}")
         if content_type != "application/zip" or length != hop.sizes[platform]:
-            raise _BadFeed(
+            raise _FeedError(
                 f"{hop.version} {platform}: got {content_type}, {length} bytes; "
                 f"expected application/zip, {hop.sizes[platform]} bytes"
             )
@@ -186,11 +179,7 @@ def get_stable_release(agent_data: dict) -> tuple[LatestRelease | None, UpdateEr
             return None, None
         newest = candidates[-1]
         _check_archives(newest)
-    except _Transient as e:
-        # Raising here would block every agent's commit this run; skip instead.
-        print(f"::warning::{AGENT_ID}: feed unavailable, skipping this run: {e}", file=sys.stderr)
-        return None, None
-    except _BadFeed as e:
+    except _FeedError as e:
         return None, UpdateError(AGENT_ID, f"feed: {e}")
 
     return LatestRelease(

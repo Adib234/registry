@@ -268,18 +268,23 @@ class TestGetStableRelease:
         assert release is None
         assert "windows-x86_64" in error.error
 
-    def test_transient_failure_skips_without_error(self, feed, capsys):
+    def test_feed_unavailable_is_an_error(self, feed):
         url = f"{BASE}/next/1.3.0/acp_next.json"
-        feed(links={}, errors={url: antigravity._Transient(f"HTTP 503 for {url}")})
+        feed(links={}, errors={url: antigravity._FeedError(f"HTTP 503 for {url}")})
 
-        assert antigravity.get_stable_release(_agent()) == (None, None)
-        assert "::warning::antigravity-acp" in capsys.readouterr().err
+        release, error = antigravity.get_stable_release(_agent())
 
-    def test_transient_failure_on_archive_head_skips_without_error(self, feed):
+        assert release is None
+        assert "HTTP 503" in error.error
+
+    def test_archive_head_timeout_is_an_error(self, feed):
         url = _archive("1.4.0", "darwin-x86_64")
-        feed(links={"1.3.0": _link("1.4.0")}, errors={url: antigravity._Transient("timeout")})
+        feed(links={"1.3.0": _link("1.4.0")}, errors={url: antigravity._FeedError("timeout")})
 
-        assert antigravity.get_stable_release(_agent()) == (None, None)
+        release, error = antigravity.get_stable_release(_agent())
+
+        assert release is None
+        assert "timeout" in error.error
 
 
 class TestHttpStatusMapping:
@@ -293,20 +298,15 @@ class TestHttpStatusMapping:
         with self._open_raising(self._http_error(404)):
             assert antigravity._get(f"{BASE}/next/1.3.0/acp_next.json") == (404, b"")
 
-    @pytest.mark.parametrize("code", [500, 502, 503])
-    def test_5xx_is_transient(self, code):
-        with self._open_raising(self._http_error(code)), pytest.raises(antigravity._Transient):
+    @pytest.mark.parametrize("code", [301, 302, 307, 403, 500, 502, 503])
+    def test_redirects_4xx_and_5xx_are_feed_errors(self, code):
+        with self._open_raising(self._http_error(code)), pytest.raises(antigravity._FeedError):
             antigravity._get(f"{BASE}/next/1.3.0/acp_next.json")
 
-    @pytest.mark.parametrize("code", [301, 302, 307, 403])
-    def test_redirects_and_other_4xx_are_bad_feed(self, code):
-        with self._open_raising(self._http_error(code)), pytest.raises(antigravity._BadFeed):
-            antigravity._get(f"{BASE}/next/1.3.0/acp_next.json")
-
-    def test_network_error_is_transient(self):
+    def test_network_error_is_a_feed_error(self):
         with (
             self._open_raising(urllib.error.URLError("refused")),
-            pytest.raises(antigravity._Transient),
+            pytest.raises(antigravity._FeedError),
         ):
             antigravity._get(f"{BASE}/next/1.3.0/acp_next.json")
 
